@@ -1,6 +1,6 @@
 import csv
 
-from Student_Attendance_System.core.database import get_db
+from core.database import get_db
 
 
 class TeacherService:

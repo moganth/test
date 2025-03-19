@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from Student_Attendance_System.services.student_service import StudentService
+from services.student_service import StudentService
 
 router = APIRouter()
 

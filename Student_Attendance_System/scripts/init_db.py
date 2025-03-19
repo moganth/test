@@ -1,3 +1,3 @@
-from Student_Attendance_System.core.database import init_db
+from core.database import init_db
 
 init_db()
