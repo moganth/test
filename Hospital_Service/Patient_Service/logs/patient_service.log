@@ -1,0 +1,89 @@
+2025-03-10 14:34:07 - DEBUG - Using selector: SelectSelector
+2025-03-10 14:34:07 - INFO - Patient Service database initialized successfully!
+2025-03-10 14:34:07 - INFO - MQTT client started
+2025-03-10 14:34:07 - INFO - Patient Service has started
+2025-03-10 14:34:07 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 14:35:22 - DEBUG - Using selector: SelectSelector
+2025-03-10 14:35:22 - INFO - Patient Service database initialized successfully!
+2025-03-10 14:35:22 - INFO - MQTT client started
+2025-03-10 14:35:22 - INFO - Patient Service has started
+2025-03-10 14:35:22 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 14:46:21 - DEBUG - Starting new HTTP connection (1): doctor-service:8000
+2025-03-10 14:49:58 - DEBUG - Starting new HTTP connection (1): doctor-service:8000
+2025-03-10 14:54:12 - DEBUG - Starting new HTTP connection (1): doctor-service:8000
+2025-03-10 14:55:17 - DEBUG - Calling on_part_begin with no data
+2025-03-10 14:55:17 - DEBUG - Calling on_header_field with data[42:61]
+2025-03-10 14:55:17 - DEBUG - Calling on_header_value with data[63:124]
+2025-03-10 14:55:17 - DEBUG - Calling on_header_end with no data
+2025-03-10 14:55:17 - DEBUG - Calling on_header_field with data[126:138]
+2025-03-10 14:55:17 - DEBUG - Calling on_header_value with data[140:150]
+2025-03-10 14:55:17 - DEBUG - Calling on_header_end with no data
+2025-03-10 14:55:17 - DEBUG - Calling on_headers_finished with no data
+2025-03-10 14:55:17 - DEBUG - Calling on_part_data with data[154:883]
+2025-03-10 14:55:17 - DEBUG - Calling on_part_end with no data
+2025-03-10 14:55:17 - DEBUG - Calling on_end with no data
+2025-03-10 14:55:17 - INFO - Message received on topic: hospital/test_submission
+2025-03-10 14:58:42 - DEBUG - Calling on_part_begin with no data
+2025-03-10 14:58:42 - DEBUG - Calling on_header_field with data[42:61]
+2025-03-10 14:58:42 - DEBUG - Calling on_header_value with data[63:124]
+2025-03-10 14:58:42 - DEBUG - Calling on_header_end with no data
+2025-03-10 14:58:42 - DEBUG - Calling on_header_field with data[126:138]
+2025-03-10 14:58:42 - DEBUG - Calling on_header_value with data[140:150]
+2025-03-10 14:58:42 - DEBUG - Calling on_header_end with no data
+2025-03-10 14:58:42 - DEBUG - Calling on_headers_finished with no data
+2025-03-10 14:58:42 - DEBUG - Calling on_part_data with data[154:883]
+2025-03-10 14:58:42 - DEBUG - Calling on_part_end with no data
+2025-03-10 14:58:42 - DEBUG - Calling on_end with no data
+2025-03-10 14:58:42 - INFO - Message received on topic: hospital/test_submission
+2025-03-10 14:59:11 - DEBUG - Starting new HTTP connection (1): doctor-service:8000
+2025-03-10 15:19:08 - DEBUG - Using selector: SelectSelector
+2025-03-10 15:19:08 - INFO - Patient Service database initialized successfully!
+2025-03-10 15:19:08 - INFO - MQTT client started
+2025-03-10 15:19:08 - INFO - Patient Service has started
+2025-03-10 15:19:08 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 15:21:10 - DEBUG - Using selector: SelectSelector
+2025-03-10 15:21:10 - INFO - Patient Service database initialized successfully!
+2025-03-10 15:21:10 - INFO - MQTT client started
+2025-03-10 15:21:10 - INFO - Patient Service has started
+2025-03-10 15:21:10 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 15:21:29 - DEBUG - Starting new HTTP connection (1): doctor-service:12398
+2025-03-10 15:24:40 - DEBUG - Using selector: SelectSelector
+2025-03-10 15:24:40 - INFO - Patient Service database initialized successfully!
+2025-03-10 15:24:40 - INFO - MQTT client started
+2025-03-10 15:24:40 - INFO - Patient Service has started
+2025-03-10 15:24:40 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 15:25:41 - DEBUG - Using selector: SelectSelector
+2025-03-10 15:25:41 - INFO - Patient Service database initialized successfully!
+2025-03-10 15:25:41 - INFO - MQTT client started
+2025-03-10 15:25:41 - INFO - Patient Service has started
+2025-03-10 15:25:42 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 15:26:24 - DEBUG - Starting new HTTP connection (1): doctor-service:12398
+2025-03-10 15:29:08 - DEBUG - Using selector: SelectSelector
+2025-03-10 15:29:08 - INFO - Patient Service database initialized successfully!
+2025-03-10 15:29:08 - INFO - MQTT client started
+2025-03-10 15:29:08 - INFO - Patient Service has started
+2025-03-10 15:29:08 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 16:12:57 - DEBUG - Using selector: SelectSelector
+2025-03-10 16:12:57 - INFO - Patient Service database initialized successfully!
+2025-03-10 16:12:57 - INFO - MQTT client started
+2025-03-10 16:12:57 - INFO - Patient Service has started
+2025-03-10 16:12:57 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 16:24:26 - DEBUG - Using selector: SelectSelector
+2025-03-10 16:24:26 - INFO - Patient Service database initialized successfully!
+2025-03-10 16:24:26 - INFO - MQTT client started
+2025-03-10 16:24:26 - INFO - Patient Service has started
+2025-03-10 16:24:26 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 16:25:08 - DEBUG - Using selector: SelectSelector
+2025-03-10 16:25:08 - INFO - Patient Service database initialized successfully!
+2025-03-10 16:25:08 - INFO - MQTT client started
+2025-03-10 16:25:08 - INFO - Patient Service has started
+2025-03-10 16:25:08 - INFO - Patient Service connected to MQTT Broker!
+2025-03-10 16:26:38 - DEBUG - Starting new HTTP connection (1): 127.0.0.1:12398
+2025-03-10 16:26:38 - DEBUG - http://127.0.0.1:12398 "GET /doctor/get_reports/1 HTTP/1.1" 200 5520
+2025-03-10 16:26:41 - DEBUG - Encoding detection: Unable to determine any suitable charset.
+2025-03-10 16:27:21 - DEBUG - Starting new HTTP connection (1): 127.0.0.1:12398
+2025-03-10 16:27:21 - DEBUG - http://127.0.0.1:12398 "GET /doctor/get_reports/2 HTTP/1.1" 200 5530
+2025-03-10 16:27:21 - DEBUG - Encoding detection: Unable to determine any suitable charset.
+2025-03-10 16:29:07 - DEBUG - Starting new HTTP connection (1): 127.0.0.1:12398
+2025-03-10 16:29:07 - DEBUG - http://127.0.0.1:12398 "GET /doctor/get_reports/1 HTTP/1.1" 200 5520
+2025-03-10 16:29:07 - DEBUG - Encoding detection: Unable to determine any suitable charset.

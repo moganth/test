@@ -1,0 +1,52 @@
+[
+    {
+        "emp_id": 101,
+        "name": "MoganthKumar",
+        "dept": "Intern"
+    },
+    {
+        "emp_id": 102,
+        "name": "Jayaprakash",
+        "dept": "Intern"
+    },
+    {
+        "emp_id": 103,
+        "name": "PraveenKumar",
+        "dept": "Intern"
+    },
+    {
+        "emp_id": 104,
+        "name": "Akash",
+        "dept": "Intern"
+    },
+    {
+        "emp_id": 105,
+        "name": "Lokesh",
+        "dept": "Intern"
+    },
+    {
+        "emp_id": 106,
+        "name": "Kanniyan",
+        "dept": "Intern"
+    },
+    {
+        "emp_id": 107,
+        "name": "Test ",
+        "dept": "Engineereing"
+    },
+    {
+        "emp_id": 182,
+        "name": "akhib",
+        "dept": "it"
+    },
+    {
+        "emp_id": 193,
+        "name": "manoj",
+        "dept": "Test"
+    },
+    {
+        "emp_id": 100,
+        "name": "test",
+        "dept": "test"
+    }
+]

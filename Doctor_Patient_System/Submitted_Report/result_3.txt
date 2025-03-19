@@ -1,0 +1,23 @@
+=====================================
+         DOCTOR'S REPORT           
+=====================================
+
+Patient Name : John Doe
+Age          : 35
+-------------------------------------
+Findings:
+- Hemoglobin (14.5 g/dL) → Normal
+- WBC Count (7,800 /µL) → Normal
+- Platelet Count (250,000 /µL) → Normal
+- RBC Count (5.2 M/µL) → Normal
+- Glucose (95 mg/dL, Fasting) → Normal
+- Cholesterol (180 mg/dL) → Normal
+
+-------------------------------------
+Doctor's Remarks:
+The blood test results fall within normal reference ranges. No significant abnormalities detected. 
+The patient appears to be in good health. It is recommended to maintain a balanced diet and 
+regular exercise. For further assessment, follow up with routine check-ups.
+
+-------------------------------------
+Signature: __________________________

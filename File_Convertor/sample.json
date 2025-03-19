@@ -1,0 +1,478 @@
+{
+    "components": {
+        "comp-for-loop-1": {
+            "dag": {
+                "tasks": {
+                    "write-data": {
+                        "cachingOptions": {},
+                        "componentRef": {
+                            "name": "comp-write-data"
+                        },
+                        "inputs": {
+                            "parameters": {
+                                "details": {
+                                    "componentInputParameter": "pipelinechannel--input_config-loop-item"
+                                },
+                                "project_id": {
+                                    "componentInputParameter": "pipelinechannel--project_id"
+                                },
+                                "status_id": {
+                                    "componentInputParameter": "pipelinechannel--status-filer-Output"
+                                },
+                                "user_id": {
+                                    "componentInputParameter": "pipelinechannel--user_id"
+                                }
+                            }
+                        },
+                        "taskInfo": {
+                            "name": "write-data"
+                        }
+                    }
+                }
+            },
+            "inputDefinitions": {
+                "parameters": {
+                    "pipelinechannel--input_config": {
+                        "parameterType": "LIST"
+                    },
+                    "pipelinechannel--input_config-loop-item": {
+                        "parameterType": "STRING"
+                    },
+                    "pipelinechannel--project_id": {
+                        "parameterType": "STRING"
+                    },
+                    "pipelinechannel--status-filer-Output": {
+                        "parameterType": "STRING"
+                    },
+                    "pipelinechannel--user_id": {
+                        "parameterType": "STRING"
+                    }
+                }
+            }
+        },
+        "comp-for-loop-2": {
+            "dag": {
+                "tasks": {
+                    "link-data": {
+                        "cachingOptions": {},
+                        "componentRef": {
+                            "name": "comp-link-data"
+                        },
+                        "inputs": {
+                            "parameters": {
+                                "details": {
+                                    "componentInputParameter": "pipelinechannel--input_config-loop-item"
+                                },
+                                "project_id": {
+                                    "componentInputParameter": "pipelinechannel--project_id"
+                                },
+                                "status_id": {
+                                    "componentInputParameter": "pipelinechannel--status-filer-Output"
+                                },
+                                "user_id": {
+                                    "componentInputParameter": "pipelinechannel--user_id"
+                                }
+                            }
+                        },
+                        "taskInfo": {
+                            "name": "link-data"
+                        }
+                    }
+                }
+            },
+            "inputDefinitions": {
+                "parameters": {
+                    "pipelinechannel--input_config": {
+                        "parameterType": "LIST"
+                    },
+                    "pipelinechannel--input_config-loop-item": {
+                        "parameterType": "STRING"
+                    },
+                    "pipelinechannel--project_id": {
+                        "parameterType": "STRING"
+                    },
+                    "pipelinechannel--status-filer-Output": {
+                        "parameterType": "STRING"
+                    },
+                    "pipelinechannel--user_id": {
+                        "parameterType": "STRING"
+                    }
+                }
+            }
+        },
+        "comp-link-data": {
+            "executorLabel": "exec-link-data",
+            "inputDefinitions": {
+                "parameters": {
+                    "details": {
+                        "parameterType": "STRING"
+                    },
+                    "project_id": {
+                        "parameterType": "STRING"
+                    },
+                    "status_id": {
+                        "parameterType": "STRING"
+                    },
+                    "user_id": {
+                        "parameterType": "STRING"
+                    }
+                }
+            },
+            "outputDefinitions": {
+                "parameters": {
+                    "Output": {
+                        "parameterType": "STRING"
+                    }
+                }
+            }
+        },
+        "comp-status-filer": {
+            "executorLabel": "exec-status-filer",
+            "inputDefinitions": {
+                "parameters": {
+                    "input_config": {
+                        "parameterType": "LIST"
+                    },
+                    "project_id": {
+                        "parameterType": "STRING"
+                    },
+                    "user_id": {
+                        "parameterType": "STRING"
+                    }
+                }
+            },
+            "outputDefinitions": {
+                "parameters": {
+                    "Output": {
+                        "parameterType": "STRING"
+                    }
+                }
+            }
+        },
+        "comp-write-data": {
+            "executorLabel": "exec-write-data",
+            "inputDefinitions": {
+                "parameters": {
+                    "details": {
+                        "parameterType": "STRING"
+                    },
+                    "project_id": {
+                        "parameterType": "STRING"
+                    },
+                    "status_id": {
+                        "parameterType": "STRING"
+                    },
+                    "user_id": {
+                        "parameterType": "STRING"
+                    }
+                }
+            },
+            "outputDefinitions": {
+                "parameters": {
+                    "Output": {
+                        "parameterType": "STRING"
+                    }
+                }
+            }
+        }
+    },
+    "deploymentSpec": {
+        "executors": {
+            "exec-link-data": {
+                "container": {
+                    "args": [
+                        "--executor_input",
+                        "{{$}}",
+                        "--function_to_execute",
+                        "link_data"
+                    ],
+                    "command": [
+                        "sh",
+                        "-c",
+                        "apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata \\\n&& apt-get install --no-install-recommends -y locales ca-certificates unixodbc odbcinst curl gnupg gnupg2 gnupg1 \\\n&& echo \"en_US.UTF-8 UTF-8\" > /etc/locale.gen && locale-gen en_US.UTF-8 \\\n&& curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \\\n&& curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list \\\n&& apt-get update \\\n&& ACCEPT_EULA=Y apt-get install --no-install-recommends -y apt-transport-https msodbcsql17 \\\n&& if ! [ -x \"$(command -v pip)\" ]; then \\\n  python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip \\\n; fi \\\n&& PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location \\\n--index-url https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ \\\n--trusted-host package-manager.unifytwin.com \\\n--extra-index-url https://pypi.org/ --trusted-host pypi.org 'kfp==2.8.0' '--no-deps' \\\n'typing-extensions>=3.7.4,<5; python_version<\"3.9\"' \\\n&& python3 -m pip install --quiet --no-warn-script-location \\\n--index-url https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ \\\n--trusted-host package-manager.unifytwin.com \\\n--extra-index-url https://pypi.org/ --trusted-host pypi.org \\\n'ut-sql-utils[codegen]>=1.4.4' 'ut-security-util[stable]>=1.2.11' \\\n'sqlacodegen==3.0.0rc5' 'pendulum~=3.0.0' 'loguru~=0.7.2' 'portalocker==2.10.1' \\\n'ut-data-transformer>=1.1.8' 'ut-dev-utils[loguru]>=0.0.8' 'ut-stream-publisher==1.0.8' \\\n'edge-lite-db-engine==2.2.0' \\\n&& \"$0\" \"$@\"\n",
+                        "sh",
+                        "-ec",
+                        "program_path=$(mktemp -d)\n\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\n_KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+                        "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import *\n\ndef link_data(details: str, project_id: str, user_id: str, status_id: str) -> str:\n    from ut_dev_utils import configure_logger\n\n    configure_logger()\n    import pandas as pd\n    import os\n    import pendulum\n    import time\n    from loguru import logger as logging\n    from ut_data_transformer import DataTransformer, ExecutorType\n    from ut_redis_connector import RedisConnector\n    from itertools import islice\n    from edge_lite_db_engine import TimeSeriesUtility\n    from ut_security_util import ILensRequest\n    from ut_stream_publisher import KafkaPublisher\n\n    redis_connector = RedisConnector(os.environ.get(\"REDIS_URI\"))\n    kafka_obj = KafkaPublisher()\n\n    def perform_redis_write(\n        source_df: pd.DataFrame,\n        batch_column: str,\n        product_column: str,\n        recipe_column: str,\n        batch_id_type: str = \"str\",\n    ):\n        batch_details = {}\n\n        for _, row in source_df.iterrows():\n            try:\n                batch_key = (\n                    int(row[batch_column])\n                    if batch_id_type == \"int\"\n                    else row[batch_column]\n                )\n                product_value = int(row[product_column])\n                recipe_value = int(row[recipe_column])\n\n                batch_details[batch_key] = f\"{product_value}__{recipe_value}\"\n            except Exception:\n                pass\n\n        redis_batch_db = redis_connector.connect(db=62, decode_responses=True)\n        redis_batch_db.hset(project_id, mapping=batch_details)\n\n    def perform_data_publish(\n        hierarchy_column,\n        dataframe,\n        parameter_categories=None,\n        parameters=None,\n        start_column=\"start\",\n        end_column=\"end\",\n        batch_column=\"batch_id\",\n        batch_id_type=\"str\",\n    ):\n        parameter_ids = []\n        if parameter_categories:\n            parameter_ids = fetch_tag_details(parameter_categories)\n        elif parameters:\n            parameter_ids = parameters\n        else:\n            logging.debug(\"No parameters or parameter categories provided\")\n            return\n        unique_hierarchy_list = []\n        if hierarchy_column in dataframe.columns:\n            unique_hierarchy_list = (\n                dataframe[hierarchy_column].dropna().unique().tolist()\n            )\n        full_path_tag = fetch_full_path(unique_hierarchy_list, parameter_ids)\n        logging.debug(full_path_tag)\n        hierarchy_values = {}\n        data = full_path_tag.get(\"data\", [])\n        updated_data = [\n            rec | {\"hierarchy\": \"$\".join(rec.get(\"value\").split(\"$\")[:-1])}\n            for rec in data\n            if \"value\" in rec\n        ]\n        for hierarchy in unique_hierarchy_list:\n            values = [\n                item.get(\"value\")\n                for item in updated_data\n                if item.get(\"hierarchy\") == hierarchy\n            ]\n            hierarchy_values[hierarchy] = values\n        if hierarchy_values:\n            create_json_chunks(\n                dataframe,\n                hierarchy_values,\n                hierarchy_column,\n                start_column,\n                end_column,\n                batch_column,\n                batch_id_type,\n            )\n\n    def create_json_chunks(\n        df,\n        hierarchy_values,\n        hierarchy_column,\n        start_column,\n        end_column,\n        batch_column,\n        batch_id_type,\n    ):\n        tag_chunk_size = int(os.getenv(\"TAG_CHUNK\", 2))\n\n        for _, row in df.iterrows():\n            try:\n                hierarchy = row[hierarchy_column]\n                start_time = row[start_column]\n                end_time = row[end_column]\n                b_id = (\n                    int(row[batch_column])\n                    if batch_id_type == \"int\"\n                    else row[batch_column]\n                )\n            except ValueError as e:\n                logging.error(f\"Skipping row due to error: {e}\")\n                continue\n\n            tags = hierarchy_values.get(hierarchy, [])\n            tags = list(set(tags))\n\n            if not tags:\n                continue\n\n            start_absolute = int(\n                pendulum.parse(str(start_time), tz=\"UTC\").int_timestamp * 1000\n            )\n            end_absolute = int(\n                pendulum.parse(str(end_time), tz=\"UTC\").int_timestamp * 1000\n            )\n\n            tag_chunks = [\n                list(islice(tags, i, i + tag_chunk_size))\n                for i in range(0, len(tags), tag_chunk_size)\n            ]\n\n            for _, chunk in enumerate(tag_chunks):\n                chunk_json = {\n                    \"metrics\": [\n                        {\n                            \"tags\": {\"c3\": chunk},\n                            \"name\": f\"{project_id}__ilens.live_data.raw\",\n                        }\n                    ],\n                    \"plugins\": [],\n                    \"cache_time\": 0,\n                    \"time_zone\": \"UTC\",\n                    \"start_absolute\": start_absolute,\n                    \"end_absolute\": end_absolute,\n                }\n                values = _fetch_data_from_edgelite(chunk_json)\n                delete_data_from_edgelite(chunk_json)\n                process_and_publish_payloads(values, b_id, project_id)\n                time.sleep(os.getenv(\"FETCH_WAIT_TIME\", 1))\n                chunk_json[\"metrics\"][0][\"tags\"][\"b_id\"] = b_id\n                republished_values = _fetch_data_from_edgelite(chunk_json)\n                if len(values) != len(republished_values):\n                    delete_data_from_edgelite(chunk_json)\n                    process_and_publish_payloads(values, -1, project_id)\n\n    def _fetch_data_from_edgelite(timeseries_query: dict):\n        edge_util = TimeSeriesUtility(\n            project_id=project_id,\n            database=os.getenv(\"DATA_INSERTION_TYPE\", \"kairos\"),\n            project_details_db=project_details_db,\n        )\n        response = edge_util.fetch_data(query_json=timeseries_query)\n        if not response or response[\"queries\"][0][\"sample_size\"] == 0:\n            return {}\n        try:\n            c3_key = response[\"queries\"][0][\"results\"][0][\"tags\"][\"c3\"][0]\n            values = response[\"queries\"][0][\"results\"][0][\"values\"]\n\n            return {c3_key: values}\n        except (KeyError, IndexError) as e:\n            logging.error(f\"Error extracting c3 or values: {e}\")\n            return {}\n\n    def delete_data_from_edgelite(timeseries_query: dict):\n        edge_util = TimeSeriesUtility(\n            project_id=project_id,\n            database=os.getenv(\"DATA_INSERTION_TYPE\", \"kairos\"),\n            project_details_db=project_details_db,\n        )\n        delete_response = edge_util.delete_data(query_json=timeseries_query)\n        logging.debug(delete_response)\n\n    def process_and_publish_payloads(values, b_id, project_id):\n        for key, value_list in values.items():\n            for value in value_list:\n                timestamp, second_element = value\n                payload_data = {key: {\"val\": second_element, \"b_id\": b_id, \"dq\": 1}}\n                payload = {\n                    \"data\": payload_data,\n                    \"site_id\": key.split(\"$\")[0],\n                    \"gw_id\": \"\",\n                    \"pd_id\": \"\",\n                    \"timestamp\": timestamp,\n                    \"msg_id\": \"BPA BatchID update\",\n                    \"d_id\": \"\",\n                    \"retain_flag\": False,\n                    \"ver\": 1.2,\n                    \"p_id\": project_id,\n                }\n                publish_to_data_processor(payload)\n        time.sleep(1)\n\n    def publish_to_data_processor(payload, rule_alarm=False):\n        try:\n            logging.debug(\"Publishing data to Kafka\")\n            logging.debug(payload)\n            kafka_obj.publish(payload, rule_alarm=rule_alarm)\n            logging.debug(\"Data Published!!!\")\n        except Exception as e:\n            logging.error(f\"Failed to publish message - {e}\")\n\n    def cycle_time_publish(\n        df, tag_column, start_column, end_column, batch_column, batch_id_type\n    ):\n        for _, row in df.iterrows():\n            try:\n                tag = row[tag_column]\n                start_time = row[start_column]\n                end_time = row[end_column]\n                if not start_time or not end_time:\n                    continue\n                duration = (pendulum.parse(end_time) - pendulum.parse(start_time)).in_minutes()\n                batch_id = row[batch_column]\n                batch_id = int(batch_id) if batch_id_type == \"int\" else batch_id\n            except ValueError as e:\n                logging.error(f\"Skipping row due to error: {e}\")\n                continue\n            payload = {\n                \"data\": {tag: {\"val\": duration, \"b_id\": batch_id, \"dq\": 1}},\n                \"site_id\": tag.split(\"$\")[0],\n                \"gw_id\": \"\",\n                \"pd_id\": \"\",\n                \"timestamp\": pendulum.parse(row[end_column]).int_timestamp * 1000,\n                \"msg_id\": \"OOT\",\n                \"d_id\": \"\",\n                \"retain_flag\": False,\n                \"ver\": 1.2,\n                \"p_id\": project_id,\n            }\n            publish_to_data_processor(payload, rule_alarm=True)\n\n    def fetch_tag_details(parameter_categories):\n        endpoint_url = f\"{os.getenv('HIERARCHY_SERVICES_URL')}/parameters/get_parameter_category_content\"\n\n        payload = {\n            \"startRow\": 0,\n            \"endRow\": 100,\n            \"page\": 1,\n            \"records\": 100,\n            \"project_id\": project_id,\n        }\n        parameter_ids = set()\n        try:\n            request_obj = ILensRequest(endpoint_url, project_id, user_id)\n            response = request_obj.post(json=payload)\n            if response.status_code == 200:\n                response_data = response.json()\n                if response_data.get(\"status\") == \"success\":\n                    body_content = response_data.get(\"data\", {}).get(\"bodyContent\", [])\n                    for category in body_content:\n                        tag_category_name = category.get(\"tag_category_name\", \"\")\n                        tags_list = category.get(\"tagsList\", [])\n                        if tag_category_name in parameter_categories:\n                            parameter_ids.update(\n                                tag.get(\"tag_id\")\n                                for tag in tags_list\n                                if \"tag_id\" in tag\n                            )\n            else:\n                logging.debug(\n                    f\"Error: Failed to fetch tag details. Status code: {response.status_code}\"\n                )\n                logging.debug(\"Response:\", response.text)\n        except Exception as e:\n            logging.error(f\"An error occurred while fetching tag details: {e}\")\n\n        return list(parameter_ids)\n\n    def fetch_full_path(unique_hierarchy_list, parameter_ids):\n        endpoint_url = f\"{os.getenv('HIERARCHY_SERVICES_URL')}/hry/fetch_tags\"\n\n        payload = {\n            \"project_id\": project_id,\n            \"hierarchy_list\": unique_hierarchy_list,\n            \"parameter_list\": parameter_ids,\n            \"fetch_internal_hierarchies\": True,\n        }\n        try:\n            request_obj = ILensRequest(endpoint_url, project_id, user_id)\n            response = request_obj.post(json=payload)\n            response.raise_for_status()\n            return response.json()\n        except Exception as e:\n            logging.error(f\"An error occurred while fetching the full path: {e}\")\n            return None\n\n    link_data_transformer = DataTransformer(\n        project_id=project_id,\n        user_id=user_id,\n        configuration=details,\n        executor_type=ExecutorType.LINK_DATA,\n        status_id=status_id,\n    )\n    project_details_db = redis_connector.connect(db=18, decode_responses=True)\n    df_tuple = link_data_transformer()\n    configuration = link_data_transformer.configuration\n    target_key = link_data_transformer.status_key\n    additional_processing = configuration.get(\"additional_processing\", {})\n\n    while df_tuple is not None:\n        if target_key == \"batchprocess\":\n            redis_batch_context = additional_processing.get(\"redis_batch_context\", {})\n            if redis_batch_context:\n                batch_column = redis_batch_context.get(\"batch_column\")\n                product_column = redis_batch_context.get(\"product_column\")\n                recipe_column = redis_batch_context.get(\"recipe_column\")\n                batch_id_type = redis_batch_context.get(\"batch_id_type\")\n                perform_redis_write(\n                    df_tuple[1],\n                    batch_column,\n                    product_column,\n                    recipe_column,\n                    batch_id_type,\n                )\n        if target_key == \"batches\":\n            cycle_time_context = additional_processing.get(\"cycle_time\", {})\n            if cycle_time_context:\n                tag_column = cycle_time_context.get(\"tag_column\", \"tag_name\")\n                start_column = cycle_time_context.get(\"start_column\", \"start\")\n                end_column = cycle_time_context.get(\"end_column\", \"end\")\n                batch_column = cycle_time_context.get(\"batch_column\", \"id\")\n                batch_id_type = cycle_time_context.get(\"batch_id_type\", \"int\")\n                cycle_time_publish(\n                    df_tuple[1],\n                    tag_column,\n                    start_column,\n                    end_column,\n                    batch_column,\n                    batch_id_type,\n                )\n        if target_key == \"unitprocedureinstance\":\n            timeseries_batch_context = additional_processing.get(\n                \"timeseries_batch_context\", {}\n            )\n            if timeseries_batch_context:\n                parameter_categories = timeseries_batch_context.get(\n                    \"parameter_categories\", []\n                )\n                start_column = timeseries_batch_context.get(\"start_column\", \"\")\n                end_column = timeseries_batch_context.get(\"end_column\", \"\")\n                batch_column = timeseries_batch_context.get(\"batch_column\", \"\")\n                batch_id_type = timeseries_batch_context.get(\"batch_id_type\", \"str\")\n                parameters = timeseries_batch_context.get(\"parameters\", [])\n                hierarchy_column = timeseries_batch_context.get(\"hierarchy_column\", \"\")\n                perform_data_publish(\n                    hierarchy_column,\n                    df_tuple[1],\n                    parameter_categories,\n                    parameters,\n                    start_column,\n                    end_column,\n                    batch_column,\n                    batch_id_type,\n                )\n\n        df_tuple = link_data_transformer()\n    return status_id\n\n"
+                    ],
+                    "env": [
+                        {
+                            "name": "BASE_PATH",
+                            "value": "/code/data/core-volumes"
+                        },
+                        {
+                            "name": "DATA_CHUNK_SIZE",
+                            "value": "10000"
+                        },
+                        {
+                            "name": "DATA_QUEUE_TOPIC",
+                            "value": "ingestion_input"
+                        },
+                        {
+                            "name": "DEFER_GEN_REFRESH",
+                            "value": "true"
+                        },
+                        {
+                            "name": "INITIAL_WAIT_TIME",
+                            "value": "10"
+                        },
+                        {
+                            "name": "LINK_WAIT_TIME",
+                            "value": "3"
+                        },
+                        {
+                            "name": "LOG_LEVEL",
+                            "value": "DEBUG"
+                        },
+                        {
+                            "name": "MODULE_NAME",
+                            "value": "transformer"
+                        },
+                        {
+                            "name": "MOUNT_DIR",
+                            "value": "transformer"
+                        },
+                        {
+                            "name": "PREFER_LOGURU",
+                            "value": "true"
+                        },
+                        {
+                            "name": "RULE_ALARM_QUEUE_TOPIC",
+                            "value": "rule_alarm_input"
+                        }
+                    ],
+                    "image": "python:3.12.4"
+                }
+            },
+            "exec-status-filer": {
+                "container": {
+                    "args": [
+                        "--executor_input",
+                        "{{$}}",
+                        "--function_to_execute",
+                        "status_filer"
+                    ],
+                    "command": [
+                        "sh",
+                        "-c",
+                        "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location --index-url https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ --trusted-host https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ --extra-index-url https://pypi.org/ --trusted-host https://pypi.org/ 'kfp==2.8.0' '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&  python3 -m pip install --quiet --no-warn-script-location --index-url https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ --trusted-host https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ --extra-index-url https://pypi.org/ --trusted-host https://pypi.org/ 'ut-sql-utils>=1.4.4' 'ut-security-util[stable]>=1.2.11' 'sqlacodegen==3.0.0rc5' 'pendulum~=3.0.0' 'loguru~=0.7.2' 'portalocker==2.10.1' 'paho-mqtt==1.5.0' 'ut-data-transformer>=1.1.8' 'shortuuid==1.0.13' 'ut-dev-utils[loguru]>=0.0.8' && \"$0\" \"$@\"\n",
+                        "sh",
+                        "-ec",
+                        "program_path=$(mktemp -d)\n\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\n_KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+                        "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import *\n\ndef status_filer(input_config: list, project_id: str, user_id: str) -> str:\n    from ut_dev_utils import configure_logger\n    configure_logger()\n    from ut_data_transformer import DataTransformer, ExecutorType\n\n    status_filer_transformer = DataTransformer(\n        project_id=project_id,\n        user_id=user_id,\n        configuration=input_config,\n        executor_type=ExecutorType.INITIALIZER,\n    )\n    return status_filer_transformer()\n\n"
+                    ],
+                    "env": [
+                        {
+                            "name": "BASE_PATH",
+                            "value": "/code/data/core-volumes"
+                        },
+                        {
+                            "name": "DATA_CHUNK_SIZE",
+                            "value": "10000"
+                        },
+                        {
+                            "name": "DEFER_GEN_REFRESH",
+                            "value": "true"
+                        },
+                        {
+                            "name": "INITIAL_WAIT_TIME",
+                            "value": "30"
+                        },
+                        {
+                            "name": "LINK_WAIT_TIME",
+                            "value": "3"
+                        },
+                        {
+                            "name": "MODULE_NAME",
+                            "value": "transformer"
+                        },
+                        {
+                            "name": "MOUNT_DIR",
+                            "value": "transformer"
+                        }
+                    ],
+                    "image": "python:3.12.4"
+                }
+            },
+            "exec-write-data": {
+                "container": {
+                    "args": [
+                        "--executor_input",
+                        "{{$}}",
+                        "--function_to_execute",
+                        "write_data"
+                    ],
+                    "command": [
+                        "sh",
+                        "-c",
+                        "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet --no-warn-script-location --index-url https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ --trusted-host https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ --extra-index-url https://pypi.org/ --trusted-host https://pypi.org/ 'kfp==2.8.0' '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&  python3 -m pip install --quiet --no-warn-script-location --index-url https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ --trusted-host https://admin:PyPiAdmin%40742@package-manager.unifytwin.com/simple/ --extra-index-url https://pypi.org/ --trusted-host https://pypi.org/ 'ut-sql-utils[codegen]>=1.4.4' 'ut-security-util[stable]>=1.2.11' 'ut-dev-utils>=0.0.7' 'loguru~=0.7.2' 'portalocker==2.10.1' 'paho-mqtt==1.5.0' 'ut-data-transformer>=1.1.8' 'shortuuid==1.0.13' 'ut-dev-utils[loguru]>=0.0.8' 'ut-notifications-util==0.0.5' && \"$0\" \"$@\"\n",
+                        "sh",
+                        "-ec",
+                        "program_path=$(mktemp -d)\n\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\n_KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+                        "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import *\n\ndef write_data(details: str, project_id: str, user_id: str, status_id: str) -> str:\n    from ut_dev_utils import configure_logger\n\n    configure_logger()\n    import time\n    import pandas as pd\n    from ut_data_transformer import DataTransformer, ExecutorType\n    from ut_notifications_util import PlatformNotificationHandler\n\n    def publish_recipe_notification(\n        df: pd.DataFrame, inserted_index: list[int], user_ids: list[str]\n    ):\n        notification_handler = PlatformNotificationHandler(project_id=project_id)\n        for index in inserted_index:\n            row = df.iloc[index]\n            notification_handler.send_notifications(\n                type_=\"Dashboards\",\n                main_msg=\"KPI/BPI not configured.\",\n                sub_msg=f\"KPI/BPI not configured for {row['name']}\",\n                users=user_ids,\n                status=\"info\",\n                retain=True,\n                redirection_url=\"p/settings/batch-configuration\",\n            )\n            notification_handler.send_notifications(\n                type_=\"Dashboards\",\n                main_msg=\"Golden Batch not configured.\",\n                sub_msg=f\"Golden Batch not configured for {row['name']}\",\n                users=user_ids,\n                status=\"info\",\n                retain=True,\n            )\n            notification_handler.send_notifications(\n                type_=\"Dashboards\",\n                main_msg=\"Alerts not configured.\",\n                sub_msg=f\"Alerts not configured for {row['name']}\",\n                users=user_ids,\n                status=\"info\",\n                retain=True,\n            )\n\n    write_data_transformer = DataTransformer(\n        project_id=project_id,\n        user_id=user_id,\n        configuration=details,\n        executor_type=ExecutorType.BASE_WRITER,\n        status_id=status_id,\n    )\n    df_tuple = write_data_transformer()\n    configuration = write_data_transformer.configuration\n    target_key = write_data_transformer.status_key\n    additional_processing = configuration.get(\"additional_processing\", {})\n    while df_tuple is not None:\n        if target_key == \"recipe\":\n            df = df_tuple[1]\n            inserted_index = df_tuple[2]\n            user_ids = additional_processing.get(\"user_ids\", user_id)\n            publish_recipe_notification(df, inserted_index, user_ids)\n        df_tuple = write_data_transformer()\n    time.sleep(300)\n    return status_id\n\n"
+                    ],
+                    "env": [
+                        {
+                            "name": "BASE_PATH",
+                            "value": "/code/data/core-volumes"
+                        },
+                        {
+                            "name": "DATA_CHUNK_SIZE",
+                            "value": "10000"
+                        },
+                        {
+                            "name": "DEFER_GEN_REFRESH",
+                            "value": "true"
+                        },
+                        {
+                            "name": "INITIAL_WAIT_TIME",
+                            "value": "30"
+                        },
+                        {
+                            "name": "LINK_WAIT_TIME",
+                            "value": "3"
+                        },
+                        {
+                            "name": "MODULE_NAME",
+                            "value": "transformer"
+                        },
+                        {
+                            "name": "MOUNT_DIR",
+                            "value": "transformer"
+                        },
+                        {
+                            "name": "REDIS_STATUS_EXPIRY",
+                            "value": "4800"
+                        }
+                    ],
+                    "image": "python:3.12.4"
+                }
+            }
+        }
+    },
+    "pipelineInfo": {
+        "description": "Data Transformer",
+        "name": "data-transformer"
+    },
+    "root": {
+        "dag": {
+            "tasks": {
+                "for-loop-1": {
+                    "componentRef": {
+                        "name": "comp-for-loop-1"
+                    },
+                    "dependentTasks": [
+                        "status-filer"
+                    ],
+                    "inputs": {
+                        "parameters": {
+                            "pipelinechannel--input_config": {
+                                "componentInputParameter": "input_config"
+                            },
+                            "pipelinechannel--project_id": {
+                                "componentInputParameter": "project_id"
+                            },
+                            "pipelinechannel--status-filer-Output": {
+                                "taskOutputParameter": {
+                                    "outputParameterKey": "Output",
+                                    "producerTask": "status-filer"
+                                }
+                            },
+                            "pipelinechannel--user_id": {
+                                "componentInputParameter": "user_id"
+                            }
+                        }
+                    },
+                    "iteratorPolicy": {
+                        "parallelismLimit": 3
+                    },
+                    "parameterIterator": {
+                        "itemInput": "pipelinechannel--input_config-loop-item",
+                        "items": {
+                            "inputParameter": "pipelinechannel--input_config"
+                        }
+                    },
+                    "taskInfo": {
+                        "name": "Write Base Data"
+                    }
+                },
+                "for-loop-2": {
+                    "componentRef": {
+                        "name": "comp-for-loop-2"
+                    },
+                    "dependentTasks": [
+                        "status-filer"
+                    ],
+                    "inputs": {
+                        "parameters": {
+                            "pipelinechannel--input_config": {
+                                "componentInputParameter": "input_config"
+                            },
+                            "pipelinechannel--project_id": {
+                                "componentInputParameter": "project_id"
+                            },
+                            "pipelinechannel--status-filer-Output": {
+                                "taskOutputParameter": {
+                                    "outputParameterKey": "Output",
+                                    "producerTask": "status-filer"
+                                }
+                            },
+                            "pipelinechannel--user_id": {
+                                "componentInputParameter": "user_id"
+                            }
+                        }
+                    },
+                    "iteratorPolicy": {
+                        "parallelismLimit": 1
+                    },
+                    "parameterIterator": {
+                        "itemInput": "pipelinechannel--input_config-loop-item",
+                        "items": {
+                            "inputParameter": "pipelinechannel--input_config"
+                        }
+                    },
+                    "taskInfo": {
+                        "name": "Link Data Tables"
+                    }
+                },
+                "status-filer": {
+                    "cachingOptions": {},
+                    "componentRef": {
+                        "name": "comp-status-filer"
+                    },
+                    "inputs": {
+                        "parameters": {
+                            "input_config": {
+                                "componentInputParameter": "input_config"
+                            },
+                            "project_id": {
+                                "componentInputParameter": "project_id"
+                            },
+                            "user_id": {
+                                "componentInputParameter": "user_id"
+                            }
+                        }
+                    },
+                    "taskInfo": {
+                        "name": "status-filer"
+                    }
+                }
+            }
+        },
+        "inputDefinitions": {
+            "parameters": {
+                "input_config": {
+                    "parameterType": "LIST"
+                },
+                "project_id": {
+                    "parameterType": "STRING"
+                },
+                "user_id": {
+                    "parameterType": "STRING"
+                }
+            }
+        }
+    },
+    "schemaVersion": "2.1.0",
+    "sdkVersion": "kfp-2.8.0"
+}

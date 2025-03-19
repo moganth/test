@@ -1,0 +1,18 @@
+=====================================
+         BLOOD TEST REPORT           
+=====================================
+
+Patient Name : John Doe
+Age          : 35
+-------------------------------------
+Test Name            Result     Normal Range
+-------------------------------------
+Hemoglobin           14.5 g/dL  13.8 - 17.2 g/dL (M), 12.1 - 15.1 g/dL (F)
+WBC Count           7,800 /µL  4,500 - 11,000 /µL
+Platelet Count      250,000 /µL 150,000 - 450,000 /µL
+RBC Count           5.2 M/µL    4.7 - 6.1 M/µL (M), 4.2 - 5.4 M/µL (F)
+Glucose             95 mg/dL   70 - 100 mg/dL (Fasting)
+Cholesterol         180 mg/dL  < 200 mg/dL
+
+Doctor's Remarks: ___________________
+Signature: __________________________
